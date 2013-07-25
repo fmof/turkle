@@ -1,6 +1,11 @@
 {% extends "hits/index.html" %}
+
 {% block content %}
-<p>
-  <h1 style="color:red;"><em>You've submitted answers for HIT {{ submitted_hit.id }}.</em></h1>
-</p>
+<div style=" width:100%; border:2px solid black; margin-top:10px">
+  <div style="width:100%; margin:10px">
+    <p style="color:red;"><em>
+      You've submitted answers for HIT: {{ submitted_hit.id }}.</em>
+    </p>
+  </div>
+</div>
 {% endblock %}

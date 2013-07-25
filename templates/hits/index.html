@@ -1,25 +1,69 @@
 {% extends "base.html" %}
 {% block body %}
+
 {% block content %}
+{# subclassed templates will add content here.#}
 {% endblock %}
-<h1>Unfinished HITs</h1>
-{% if unfinished_hit_list %}
-    <ul>
-    {% for hit in unfinished_hit_list %}
-    <li><a href="/hits/{{ hit.id }}/">HIT {{ hit.id }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No HITs are available.</p>
-{% endif %}
-<h1>Finished HITs</h1>
-{% if finished_hit_list %}
-    <ul>
-    {% for hit in finished_hit_list %}
-    <li><a href="/hits/{{ hit.id }}/">HIT {{ hit.id }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No HITs are available.</p>
-{% endif %}
+
+<div style="margin-top:22px;" align="center">
+  <table><tbody><tr>
+    <td style="width:700px;vertical-align:top;float:center;">
+      <hr />
+      New HIT Template name: _____<br />
+      New HIT Template form: |Upload|<br />
+      |Submit|
+      <hr />
+      {% for hit_template in hit_templates %}
+        <p><b>HIT Template name:</b> {{ hit_template.0.name }}</p>
+        <ul>
+          <li>Rename this template: _____  |Submit|</li>
+          <li>|Delete| this template and all related HITs</li>
+          <br />
+          <li>Publish HITs for this template: |Upload CSV file|</li>
+          <li>
+            Download results of completed HITs for this template:
+            |Download CSV file|
+          </li>
+        </ul>
+
+        <p>
+          <b>Unfinished HITs</b>
+          {% if not hit_template.1 %}
+            <ul>
+              <li>No HITs are available.</li>
+            </ul>
+          {% else %}
+            <ul>
+            {% for hit in hit_template.1 %}
+              <li><a href="/hits/{{ hit.id }}/">
+                HIT {{ hit.id }}
+              </a></li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </p>
+
+        <p>
+          <b>Finished HITs</b>
+          {% if not hit_template.2 %}
+            <ul>
+              <li>No HITs are available.</li>
+            </ul>
+          {% else %}
+            <ul>
+            {% for hit in hit_template.2 %}
+                <li><a href="/hits/{{ hit.id }}/">
+                  HIT {{ hit.id }}
+                </a></li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        </p>
+
+        <hr />
+      {% endfor %}
+    </td>
+  </tr></tbody></table>
+</div>
+
 {% endblock %}

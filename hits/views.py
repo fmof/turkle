@@ -1,21 +1,22 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import Context, loader, RequestContext
-from hits.models import Hit
+from hits.models import Hit, HitTemplate
 
 
 def hits_list_context(template, more_map={}):
-    unfinished_hit_list = Hit.objects.filter(completed=False).order_by('id')
-    finished_hit_list = Hit.objects.filter(completed=True).order_by('-id')
-    c = Context(
-        dict(
-            {
-                'unfinished_hit_list': unfinished_hit_list,
-                'finished_hit_list': finished_hit_list
-            },
-            **more_map
-        )
-    )
+
+    hit_templates = []
+    for t in HitTemplate.objects.all():
+        unfinished_hits = Hit.objects.filter(template=t, completed=False)
+        unfinished_hits = unfinished_hits.order_by('id')
+
+        finished_hits = Hit.objects.filter(template=t, completed=True)
+        finished_hits = finished_hits.order_by('-id')
+
+        hit_templates.append((t, unfinished_hits, finished_hits))
+
+    c = Context(dict(hit_templates=hit_templates, **more_map))
     return template.render(c)
 
 

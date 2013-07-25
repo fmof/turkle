@@ -1,34 +1,40 @@
 {% extends "base.html" %}
+
 {% block body %}
-<table
-  cellspacing="0"
-  cellpadding="0"
-  width="100%"
-  border="0"
-  height="40px"
->
-  <tbody><tr>
-    <td width="10%">&nbsp;</td>
-    <td width="40%">
-    </td>
-    <td width="40%">
-    </td>
-    <td width="10%">&nbsp;</td>
-  </tr></tbody>
-</table>
 
 <div style="margin-top:22px;" align="center">
-  <table>
-    <tbody><tr><td style="width:370px;vertical-align:top;float:right;padding-right:42px;">
+  <table><tbody><tr>
+    <td style="width:350px;vertical-align:top;float:right;padding-right:42px;">
       <h1>Worker instructions</h1>
       <p class="basefontsize">
         HITs - <i>Human Intelligence Tasks</i> - are individual tasks that you work on.
         Here is the <a href="/hits">List of HITs</a>.
       </p>
     </td>
-    <td style="width:400px;vertical-align:top;padding-left:42px;background-image: url(/images/intro/bg_gradient_separator.gif); background-repeat: no-repeat; height:401px;">
+    <td style="width:350px;vertical-align:top;padding-left:42px;background-image: url(/images/intro/bg_gradient_separator.gif); background-repeat: no-repeat; height:401px;">
       <h1>Requester instructions</h1>
-      <h2>Publish HITs</h2>
+      <p>
+        To publish new HITs:
+      </p>
+      <p>
+        Upload a HIT Templates (HTML file) and publish HITs by uploading an
+        inputs CSV file.
+        <br /><br />
+        These tasks can be performed from the
+        <a href="/hits">List of HITs</a> page.
+      </p>
+      <br /><br />
+      <h2>Optional command line tools for requesters</h2>
+      <p>
+        The two command line tools described below can publish hits and and
+        dump the results of all the HITs for a particular HIT Template all at
+        once.
+      </p>
+      <p>
+        Only use the command line tools to dump the results for HITs that were
+        published using the command line tools.
+      </p>
+      <h3>Publish HITs</h3>
       <p>
         To publish new HITs, <tt>cd</tt> to the root directory of this
         server's code repository and run the command:
@@ -37,7 +43,7 @@
         file and <tt>CSV_FILE_PATH</tt> replaced with the path to the CSV file
         containing the data for the individual HITs.
       </p>
-      <h2>Get results</h2>
+      <h3>Get results</h3>
       <p>
         To get the results of the completed HITs, <tt>cd</tt> to the root
         directory of this server's code repository and run the command:
@@ -58,5 +64,4 @@
   </tr></tbody></table>
 </div>
 
-{# <a href="/mturk/welcome?variant=worker" id="lnkIntroWorker" style="color:#146eb4">learn more about being a  <b>Worker</b></a> #}
 {% endblock %}
