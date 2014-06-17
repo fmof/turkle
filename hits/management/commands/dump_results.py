@@ -14,8 +14,8 @@ def results_data(completed_hits):
     same field names.
     """
     fieldnames = sorted(
-        [u'Input.' + k for k in completed_hits[0].input_csv_fields.keys()]
-        + [u'Answer.' + k for k in completed_hits[0].answers.keys()]
+        set([u'Input.' + k for ch in completed_hits for k in ch.input_csv_fields.keys()])
+        | set([u'Answer.' + k for ch in completed_hits for k in ch.answers.keys()])
     )
 
     rows = []
@@ -59,7 +59,7 @@ class Command(BaseCommand):
 
         fieldnames, rows = results_data(completed_hits)
         with open(results_csv_file_path, 'wb') as fh:
-            writer = DictWriter(fh, fieldnames)
+            writer = DictWriter(csvfile = fh, fieldnames = fieldnames, restval = '')
             writer.writeheader()
             for row in rows:
                 writer.writerow(row)
